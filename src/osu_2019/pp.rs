@@ -267,9 +267,9 @@ impl<'m> OsuPP<'m> {
         let streams_nerf =
             ((difficulty.aim_strain / difficulty.speed_strain) * 100.0).round() / 100.0;
 
-        if streams_nerf < 1.09 {
+        if streams_nerf < 1.08 {
             let acc_factor = (1.0 - self.acc.unwrap()).abs();
-            acc_depression = (0.86 - acc_factor).max(0.5);
+            acc_depression = (0.85 - acc_factor).max(0.5);
 
             if acc_depression > 0.0 {
                 aim_value *= acc_depression;
@@ -299,9 +299,6 @@ impl<'m> OsuPP<'m> {
             // Louder than steel [ok this is epic]
             1808605 => 0.85,
 
-            // over the top [Above the stars]
-            1821147 => 0.70,
-
             // Just press F [Parkour's ok this is epic]
             1844776 => 0.64,
 
@@ -312,6 +309,10 @@ impl<'m> OsuPP<'m> {
             1962833 => {
                 pp *= 0.885;
 
+            // Awake [Ultimate Formula]
+            2209202 => {
+                pp *= 0.90;
+                
                 if self.mods.dt() {
                     0.83
                 } else {
@@ -367,8 +368,8 @@ impl<'m> OsuPP<'m> {
         }
 
         // AR bonus
-        let mut ar_factor = if attributes.ar > 10.33 {
-            0.3 * (attributes.ar - 10.33)
+        let mut ar_factor = if attributes.ar > 10.31 {
+            0.3 * (attributes.ar - 10.31)
         } else {
             0.0
         };
@@ -407,7 +408,7 @@ impl<'m> OsuPP<'m> {
 
         // Scale with accuracy
         aim_value *= 0.3 + self.acc.unwrap() / 2.0;
-        aim_value *= 0.98 + attributes.od as f32 * attributes.od as f32 / 2500.0;
+        aim_value *= 0.975 + attributes.od as f32 * attributes.od as f32 / 2500.0;
 
         aim_value
     }
@@ -419,7 +420,7 @@ impl<'m> OsuPP<'m> {
             (5.0 * (attributes.speed_strain as f32 / 0.0675).max(1.0) - 4.0).powi(3) / 100_000.0;
 
         // Longer maps are worth more
-        let len_bonus = 0.88
+        let len_bonus = 0.89
             + 0.4 * (total_hits / 2000.0).min(1.0)
             + (total_hits > 2000.0) as u8 as f32 * 0.5 * (total_hits / 2000.0).log10();
         speed_value *= len_bonus;
@@ -484,12 +485,12 @@ impl<'m> OsuPP<'m> {
 
         // HD bonus
         if self.mods.hd() {
-            acc_value *= 1.08;
+            acc_value *= 1.075;
         }
 
         // FL bonus
         if self.mods.fl() {
-            acc_value *= 1.02;
+            acc_value *= 1.025;
         }
 
         acc_value
