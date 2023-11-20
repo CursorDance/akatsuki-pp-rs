@@ -323,7 +323,7 @@ impl<'m> OsuPP<'m> {
             2403677 => 0.85,
 
             // Once Upon a Sun [Interdimensional Convergence]
-            2403677 => 1.05,
+            3393903 => 1.12,
 
             // Songs Compilation [Remembrance]
             2174272 => 0.85,
