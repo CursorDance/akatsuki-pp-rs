@@ -269,7 +269,7 @@ impl<'m> OsuPP<'m> {
 
         if streams_nerf < 1.09 {
             let acc_factor = (1.0 - self.acc.unwrap()).abs();
-            acc_depression = (0.88 - acc_factor).max(0.5);
+            acc_depression = (0.875 - acc_factor).max(0.5);
 
             if acc_depression > 0.0 {
                 aim_value *= acc_depression;
@@ -321,6 +321,9 @@ impl<'m> OsuPP<'m> {
 
             // Songs Compilation [Marathon]
             2403677 => 0.85,
+
+            // Once Upon a Sun [Interdimensional Convergence]
+            2403677 => 1.05,
 
             // Songs Compilation [Remembrance]
             2174272 => 0.85,
@@ -431,7 +434,7 @@ impl<'m> OsuPP<'m> {
         }
 
         // AR bonus
-        if attributes.ar > 10.33 {
+        if attributes.ar > 10.31 {
             let mut ar_factor = if attributes.ar > 10.33 {
                 0.3 * (attributes.ar - 10.33)
             } else {
