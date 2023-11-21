@@ -269,10 +269,14 @@ impl<'m> OsuPP<'m> {
 
         if streams_nerf < 1.09 {
             let acc_factor = (1.0 - self.acc.unwrap()).abs();
-            acc_depression = (0.875 - acc_factor).max(0.5);
+            acc_depression = (0.88 - acc_factor).max(0.5);
 
             if acc_depression > 0.0 {
                 aim_value *= acc_depression;
+
+            if self.mods.dt() && self.mods.hr() {
+            pp *= 1.020;
+                
             }
         }
 
@@ -317,13 +321,10 @@ impl<'m> OsuPP<'m> {
             }
 
             // Awake [Ultimate Formula]
-            2209202 => 0.90,
+            2209202 => 0.92,
 
             // Songs Compilation [Marathon]
             2403677 => 0.85,
-
-            // Once Upon a Sun [Interdimensional Convergence]
-            3393903 => 1.12,
 
             // Songs Compilation [Remembrance]
             2174272 => 0.85,
@@ -370,8 +371,8 @@ impl<'m> OsuPP<'m> {
         }
 
         // AR bonus
-        let mut ar_factor = if attributes.ar > 10.31 {
-            0.3 * (attributes.ar - 10.31)
+        let mut ar_factor = if attributes.ar > 10.33 {
+            0.3 * (attributes.ar - 10.33)
         } else {
             0.0
         };
@@ -402,7 +403,7 @@ impl<'m> OsuPP<'m> {
             let mut base_buff = 1.08_f32;
 
             if attributes.ar <= 8.0 {
-                base_buff += (7.0 - attributes.ar as f32) / 100.0;
+                base_buff += (7.5 - attributes.ar as f32) / 100.0;
             }
 
             aim_value *= base_buff;
@@ -410,7 +411,7 @@ impl<'m> OsuPP<'m> {
 
         // Scale with accuracy
         aim_value *= 0.3 + self.acc.unwrap() / 2.0;
-        aim_value *= 0.975 + attributes.od as f32 * attributes.od as f32 / 2500.0;
+        aim_value *= 0.98 + attributes.od as f32 * attributes.od as f32 / 2500.0;
 
         aim_value
     }
@@ -487,12 +488,12 @@ impl<'m> OsuPP<'m> {
 
         // HD bonus
         if self.mods.hd() {
-            acc_value *= 1.075;
+            acc_value *= 1.08;
         }
 
         // FL bonus
         if self.mods.fl() {
-            acc_value *= 1.025;
+            acc_value *= 1.018;
         }
 
         acc_value
